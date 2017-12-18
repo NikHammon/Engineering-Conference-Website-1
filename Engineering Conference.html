@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Engineering Conference 2018</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="">
+  <link href="./Engineering Conference 2018_files/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./Engineering Conference 2018_files/stylesheet.css">
+  <link rel="stylesheet" type="text/css" href="./Engineering Conference 2018_files/main.css">
+</head>
+<body>
+
+  <header>
+    <div class="navbar-component">
+      <div class="navbar-area">
+        <div class="navbar-brand-wrap"><a href=""><img alt="Engineering Conference" class="navbar-brand" src=""></a></div>
+        <div class="navbar-list">
+        	<div class="navbar-list-item"><a class="navbar-nav-item" href="">ABOUT</a></div>
+          <div class="navbar-list-item"><a class="navbar-nav-item" href="">FAQ</a></div>
+          <div class="navbar-list-item"><a class="navbar-nav-item" href="">SCHEDULE</a></div>
+          <div class="navbar-list-item"><a class="navbar-nav-item" href="">SPONSORS</a></div>
+          <div class="navbar-list-item"><a class="navbar-nav-item" href="https://EngineeringConference.io/">CONTACT</a></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<section id="container">
+  <div class="landing">
+    <div class="inner">
+      <div class="section">
+        <h1 class="primary caps">Engineering Conference 2018</h1>
+        <h2 class="nowrap">March 24 <wbr>- March 26</h2>
+      </div>
+      <div class="section">
+        <h4 class="primary">stay updated,</h4>
+        <h4 class="primary">join our mailing list.</h4>
+        <input id="email-input" placeholder="your@email.com">
+        <button id="submit-button" onclick="subscribe()" class="raised fixed-width">Submit</button>
+        <div id="subscribe-message" class="message primary hidden">Subscribe</div>
+      </div>
+      <div class="section">
+        <h5 class="primary">want to sponsor?</h5>
+        <h5 class="primary">contact us:</h5>
+        <div><a href="" target="_blank" rel="noopener noreferrer">sponsor@engconf.com</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <h2 class="primary">FAQ</h2>
+  <div class="faq-list ui stackable two column grid">
+    <div class="column">
+      <div class="faq-card">
+        <div class="faq-card-title">
+          What is Engineering Conference?
+        </div>
+        <div class="faq-card-description">
+          Answer.
+        </div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-card-title">
+          Question
+        </div>
+        <div class="faq-card-description">
+          Answer
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="faq-card">
+        <div class="faq-card-title">
+          ANother question
+        </div>
+        <div class="faq-card-description">
+          Answer.
+        </div>
+      </div>
+    </div>
+</section>
+
+    <script>
+      function subscribe(){
+        fetch("/v1/email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: document.getElementById("email-input").value,
+          }),
+        }).then(function(res){
+          return res.json();
+        }).then(function(json){
+          if(json.success){
+            document.getElementById("subscribe-message").innerHTML = json.message;
+          } else {
+            let k = json.message;
+            if(json.reason){
+              k += ": " + json.reason;
+            }
+            document.getElementById("subscribe-message").innerHTML = k;
+          }
+          document.getElementById("subscribe-message").classList.remove("hidden");
+        });
+      }
+    </script>
+
+</body></html>
